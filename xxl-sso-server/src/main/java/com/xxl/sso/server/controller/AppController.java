@@ -19,6 +19,8 @@ import java.util.UUID;
  *
  * @author xuxueli 2018-04-08 21:02:54
  */
+
+
 @Controller
 @RequestMapping("/app")
 public class AppController {
