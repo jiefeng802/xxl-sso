@@ -60,10 +60,10 @@ public class WebController {
 
             // success redirect
             String redirectUrl = request.getParameter(Conf.REDIRECT_URL);
-            if (redirectUrl!=null && redirectUrl.trim().length()>0) {
+            if (redirectUrl != null && redirectUrl.trim().length() > 0) {
 
                 String sessionId = SsoWebLoginHelper.getSessionIdByCookie(request);
-                String redirectUrlFinal = redirectUrl + "?" + Conf.SSO_SESSIONID + "=" + sessionId;;
+                String redirectUrlFinal = redirectUrl + "?" + Conf.SSO_SESSIONID + "=" + sessionId;
 
                 return "redirect:" + redirectUrlFinal;
             } else {
@@ -87,13 +87,13 @@ public class WebController {
      */
     @RequestMapping("/doLogin")
     public String doLogin(HttpServletRequest request,
-                        HttpServletResponse response,
-                        RedirectAttributes redirectAttributes,
-                        String username,
-                        String password,
-                        String ifRemember) {
+                          HttpServletResponse response,
+                          RedirectAttributes redirectAttributes,
+                          String username,
+                          String password,
+                          String ifRemember) {
 
-        boolean ifRem = (ifRemember!=null&&"on".equals(ifRemember))?true:false;
+        boolean ifRem = (ifRemember != null && "on".equals(ifRemember)) ? true : false;
 
         // valid login
         ReturnT<UserInfo> result = userService.findUser(username, password);
@@ -121,7 +121,7 @@ public class WebController {
 
         // 4、return, redirect sessionId
         String redirectUrl = request.getParameter(Conf.REDIRECT_URL);
-        if (redirectUrl!=null && redirectUrl.trim().length()>0) {
+        if (redirectUrl != null && redirectUrl.trim().length() > 0) {
             String redirectUrlFinal = redirectUrl + "?" + Conf.SSO_SESSIONID + "=" + sessionId;
             return "redirect:" + redirectUrlFinal;
         } else {

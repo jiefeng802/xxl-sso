@@ -61,7 +61,8 @@ public class SsoLoginStore {
     }
 
     private static String redisKey(String sessionId){
-        return Conf.SSO_SESSIONID.concat("#").concat(sessionId);
+//        return Conf.SSO_SESSIONID.concat("#").concat(sessionId);
+        return sessionId;
     }
 
 }

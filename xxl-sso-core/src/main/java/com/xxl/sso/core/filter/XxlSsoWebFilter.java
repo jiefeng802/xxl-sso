@@ -34,6 +34,8 @@ public class XxlSsoWebFilter extends HttpServlet implements Filter {
         logoutPath = filterConfig.getInitParameter(Conf.SSO_LOGOUT_PATH);
         excludedPaths = filterConfig.getInitParameter(Conf.SSO_EXCLUDED_PATHS);
 
+        System.out.println("test " + ssoServer + " a " + logoutPath + " b " + excludedPaths);
+
         logger.info("XxlSsoWebFilter init.");
     }
 
@@ -45,9 +47,11 @@ public class XxlSsoWebFilter extends HttpServlet implements Filter {
         // make url
         String servletPath = req.getServletPath();
 
+        System.out.println("servletPath " + servletPath);
+
         // excluded path check
-        if (excludedPaths!=null && excludedPaths.trim().length()>0) {
-            for (String excludedPath:excludedPaths.split(",")) {
+        if (excludedPaths != null && excludedPaths.trim().length() > 0) {
+            for (String excludedPath : excludedPaths.split(",")) {
                 String uriPattern = excludedPath.trim();
 
                 // 支持ANT表达式
@@ -61,8 +65,8 @@ public class XxlSsoWebFilter extends HttpServlet implements Filter {
         }
 
         // logout path check
-        if (logoutPath!=null
-                && logoutPath.trim().length()>0
+        if (logoutPath != null
+                && logoutPath.trim().length() > 0
                 && logoutPath.equals(servletPath)) {
 
             // remove cookie
@@ -82,12 +86,12 @@ public class XxlSsoWebFilter extends HttpServlet implements Filter {
         if (xxlUser == null) {
 
             String header = req.getHeader("content-type");
-            boolean isJson=  header!=null && header.contains("json");
+            boolean isJson = header != null && header.contains("json");
             if (isJson) {
 
                 // json msg
                 res.setContentType("application/json;charset=utf-8");
-                res.getWriter().println("{\"code\":"+Conf.SSO_LOGIN_FAIL_RESULT.getCode()+", \"msg\":\""+ Conf.SSO_LOGIN_FAIL_RESULT.getMsg() +"\"}");
+                res.getWriter().println("{\"code\":" + Conf.SSO_LOGIN_FAIL_RESULT.getCode() + ", \"msg\":\"" + Conf.SSO_LOGIN_FAIL_RESULT.getMsg() + "\"}");
                 return;
             } else {
 
